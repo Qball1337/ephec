@@ -54,7 +54,7 @@
 				data: { id: id },
 				  success: function (data) {
 					  for (var i = 0; i < data.length; i++) {
-						  pointArray.push(new LatLng(data[i].latitude_value, data[i].longitude_value))
+						  pointArray.push(new google.maps.LatLng(data[i].latitude_value, data[i].longitude_value))
 					  }
 				  }
 			});
