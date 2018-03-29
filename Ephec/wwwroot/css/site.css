@@ -1,0 +1,75 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+#map {
+	height: 430px;
+	position: relative;
+	width: 100%;
+}
+
+.maps-frame {
+	height: 430px;
+	width: 100%;
+}
+
+.kd-tabbed-vert.header-links .kd-tabbutton a {
+	color: #757575;
+	display: inline-block;
+	height: 100%;
+	padding: 0 24px;
+	width: 100%;
+}
+
+.kd-tabbed-vert.header-links .kd-tabbutton {
+	padding: 0;
+}
+
+	.kd-tabbed-vert.header-links .kd-tabbutton.selected a {
+		color: #03a9f4;
+	}
+
+	.kd-tabbed-vert.header-links .kd-tabbutton a:focus {
+		text-decoration: none;
+	}
+
+p.top-desc {
+	padding: 1em 1em .1em 1em;
+}
+
+p.bottom-desc {
+	padding: 0em 1em 1em 1em;
+}
