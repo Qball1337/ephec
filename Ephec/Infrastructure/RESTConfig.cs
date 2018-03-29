@@ -9,33 +9,21 @@ namespace Ephec.Infrastructure
     {
 		private static string GetAPIEndpoint()
 		{
-			return "https://api.enco.io/seaas/0.0.1/";
+			return "http://vps517683.ovh.net/api.php/";
 		}
 
-		public static string getStream(string identifierDevice, string identifierStream)
+		public static string getGPS(string id)
 		{
-			return GetAPIEndpoint() + "device/" + identifierDevice + "/stream/" + identifierStream + "/values";
+			return GetAPIEndpoint() + "GPS/" + id;
 		}
 
-
-		public static string getAllDeviceAssets(string identifierDevice)
+		public static string getHumidity()
 		{
-			return GetAPIEndpoint() + "device/" + identifierDevice + "assets";
+			return GetAPIEndpoint() + "HUMIDITY";
 		}
-
-		public static string getLatest(string identifierDevice, string sensorName)
+		public static string getDevices()
 		{
-			return GetAPIEndpoint() + "devices/" + identifierDevice + "/sensors/" + sensorName + "/values/latest" ;
-		}
-
-		public static string getAllDevices()
-		{
-			return GetAPIEndpoint() + "device/list";
-		}
-
-		public static string getStreamID(string identifierDevice)
-		{
-			return GetAPIEndpoint() + "device/" + identifierDevice + "/stream";
+			return GetAPIEndpoint() + "DEVICES";
 		}
 	}
 }

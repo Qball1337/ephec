@@ -1,16 +1,20 @@
-﻿using System;
+﻿using Ephec.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Ephec.Infrastructure
 {
     public interface IRESTAdapter
     {
-		Task GetStream(string deviceID, string streamID);
+		Task<(HttpStatusCode, List<Animal>)> GetGPS(string id);
 
-		Task GetLatest(string deviceID, string sensorName);
+		Task<(HttpStatusCode, List<Animal>)> GetHumidity();
 
-		Task GetStreamID(string deviceID);
+		Task<(HttpStatusCode, List<Device>)> GetDevices();
+
+
 	}
 }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Ephec.Models;
 using Ephec.Infrastructure;
+using Ephec.ViewModel;
 
 namespace Ephec.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class HomeController : Controller
+	{
 
 		private readonly IRESTAdapter _restAdapter;
 
@@ -18,38 +19,39 @@ namespace Ephec.Controllers
 		{
 			_restAdapter = restAdapter;
 		}
-
+		[HttpGet]
 		public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-		public IActionResult Test()
 		{
-			//_restAdapter.GetStreamID(Secrets.GetDeviceID());
-			//_restAdapter.GetStream(Secrets.GetDeviceID(), "9");
-			_restAdapter.GetLatest(Secrets.GetDeviceID(), "HumiditySensor");
-			return View();
+			var listDevices = new List<Device>();
+			listDevices = _restAdapter.GetDevices().Result.Item2;
+			if (listDevices.Count <= 0)
+			{
+				return BadRequest();
+			}
+			
+			return View(listDevices);
 		}
 
+		[HttpGet]
+		public IActionResult About()
+		{
+			ViewData["Message"] = "Your application description page.";
+
+			return View();
+		}
+		[HttpGet]
+		public IActionResult Contact()
+		{
+			ViewData["Message"] = "Your contact page.";
+
+			return View();
+		}
+		public JsonResult GetGPSData(string id)
+		{
+			var list = new List<Animal>();
+			list = _restAdapter.GetGPS(id).Result.Item2;
+
+			return Json(list);
+		}
 	}
 }

@@ -7,5 +7,6 @@ namespace Ephec.Models
 {
     public class Device
     {
-    }
+		public string device_id { get; set; }
+	}
 }

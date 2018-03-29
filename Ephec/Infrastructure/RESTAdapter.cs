@@ -6,42 +6,53 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Ephec.Models;
 
 namespace Ephec.Infrastructure
 {
 	public class RESTAdapter : IRESTAdapter
 	{
-		public async Task GetStream(string deviceID, string streamID)
+		public async Task<(HttpStatusCode, List<Animal>)> GetGPS(string id)
 		{
 			using (var client = new HttpClient())
 			{
-					client.SetBearerToken(Secrets.GetToken());
-					var responseMessageHandler = await client.GetAsync(RESTConfig.getStream(deviceID, streamID));
-					responseMessageHandler.EnsureSuccessStatusCode();
+				var responseMessageHandler = await client.GetAsync(RESTConfig.getGPS(id));
+				if (responseMessageHandler.IsSuccessStatusCode)
+				{
 					var response = await responseMessageHandler.Content.ReadAsStringAsync();
+					var s = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Animal>>(response);
+					return (responseMessageHandler.StatusCode, s);
+				}
+				return (responseMessageHandler.StatusCode, null);
 			}
 		}
 
-		public async Task GetLatest(string deviceID, string sensorName)
+		public async Task<(HttpStatusCode, List<Animal>)> GetHumidity()
 		{
 			using (var client = new HttpClient())
 			{
-				client.SetBearerToken(Secrets.GetToken());
-				var responseMessageHandler = await client.GetAsync(RESTConfig.getLatest(deviceID, sensorName));
-				responseMessageHandler.EnsureSuccessStatusCode();
-				var response = await responseMessageHandler.Content.ReadAsStringAsync();
+				var responseMessageHandler = await client.GetAsync(RESTConfig.getHumidity());
+				if (responseMessageHandler.IsSuccessStatusCode)
+				{
+					var response = await responseMessageHandler.Content.ReadAsStringAsync();
+					var s = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Animal>>(response);
+					return (responseMessageHandler.StatusCode, s);
+				}
+				return (responseMessageHandler.StatusCode, null);
 			}
 		}
-
-		public async Task GetStreamID(string deviceID)
+		public async Task<(HttpStatusCode, List<Device>)> GetDevices()
 		{
 			using (var client = new HttpClient())
 			{
-				client.SetBearerToken(Secrets.GetToken());
-				var responseMessageHandler = await client.GetAsync(RESTConfig.getStreamID(deviceID));
-				responseMessageHandler.EnsureSuccessStatusCode();
-				var response = await responseMessageHandler.Content.ReadAsStringAsync();
-
+				var responseMessageHandler = await client.GetAsync(RESTConfig.getDevices());
+				if (responseMessageHandler.IsSuccessStatusCode)
+				{
+					var response = await responseMessageHandler.Content.ReadAsStringAsync();
+					var s = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Device>>(response);
+					return (responseMessageHandler.StatusCode, s);
+				}
+				return (responseMessageHandler.StatusCode, null);
 			}
 		}
 	}
